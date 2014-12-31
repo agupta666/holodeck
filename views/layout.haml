@@ -1,0 +1,32 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %meta{:content => "", :name => "description"}
+    %meta{:content => "", :name => "author"}
+    %link{:href => "../../favicon.ico", :rel => "icon"}
+    %title Holodeck
+    %link{:href => "/css/bootstrap.min.css", :rel => "stylesheet"}
+    %link{:href => "/css/font-awesome.min.css", :rel => "stylesheet"}
+    %link{:href => "/css/bootstrap-colorpicker.min.css", :rel => "stylesheet"}
+    %link{:href => "/css/holodeck.css", :rel => "stylesheet"}
+    %script{:src => "/js/jquery.min.js"}
+    %script{:src => "/js/bootstrap.min.js"}
+    %script{:src => "/js/bootstrap-colorpicker.min.js"}
+
+  %body
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#"} Holodeck
+        #navbar.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+    .container
+      = yield

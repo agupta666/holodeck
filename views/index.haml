@@ -1,0 +1,63 @@
+.page-header
+  %h4 Generate iOS 8 Icons
+
+.row
+  .col-sm-3
+    %canvas#icon-canvas{:height => "180", :style => "", :width => "180"}
+  .col-sm-9
+    #callout-focus-demo.bs-callout.bs-callout-info
+      %h4
+        Icon Properties
+      %hr
+      %form
+        .form-group
+          %label Background Color
+          .input-group.colorpicker
+            %input#bg-color.form-control{:type => "text", :value => "#FFFFFF"}
+            %span.input-group-addon
+              %i
+        .form-group
+          %label Foreground Color
+          .input-group.colorpicker
+            %input#fg-color.form-control{:type => "text", :value => "#000000"}
+            %span.input-group-addon
+              %i
+        .form-group
+          %label Font Icon
+          %select.form-control#fontpicker
+            - @icons.each do |icon|
+              %option{:value => "0x#{icon[:code]}"}
+                = icon[:name]
+        %a#btn-generate.btn.btn-primary{href: '#'} Generate
+        %a#btn-download.btn.btn-info{href: '#'} Download
+
+:javascript
+  $(function(){
+    $('.colorpicker').colorpicker();
+
+    $('#btn-generate').click(function(e){
+      e.preventDefault();
+      var bgColor = $('#bg-color').val();
+      var fgColor = $('#fg-color').val();
+      var selectedFont = String.fromCharCode($('#fontpicker').val());
+      var canvas = document.getElementById("icon-canvas");
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+      ctx.font = '84px/1 FontAwesome';
+      ctx.fillStyle = fgColor;
+      var w = (ctx.measureText(selectedFont).width) / 2;
+      var W = canvas.width / 2;
+      ctx.fillText(selectedFont, W-w, 115);
+      console.log()
+    });
+
+    $('#btn-download').click(function(e){
+      e.preventDefault();
+      console.log('downloading image ....');
+      var canvas = document.getElementById("icon-canvas");
+      var imgdata = canvas.toDataURL('image/png')
+      $.post( "/download", { data: imgdata } );
+    });
+
+  });

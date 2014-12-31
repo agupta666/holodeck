@@ -1,0 +1,52 @@
+body {
+  padding-top: 50px;
+}
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.bs-callout-info {
+  border-left-color: #5bc0de;
+}
+
+.bs-callout-info h4 {
+  color: #5bc0de;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+#icon-canvas {
+  border:1px solid #000000;
+  border-radius: 15px;
+}
+
+.icon-list-container {
+  margin-right: 0;
+  margin-left: 0;
+  margin: 0 -10px 20px;
+  overflow: hidden;
+}
+
+.icon-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.icon-list-container li {
+  width: 75px;
+  font-size: 12px;
+  float: left;
+  height: 75px;
+  padding: 10px;
+  line-height: 1.4;
+  text-align: center;
+  background-color: #f9f9f9;
+  border: 1px solid #fff;
+}
