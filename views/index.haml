@@ -39,6 +39,10 @@
 :javascript
   $(function(){
     $('.colorpicker').colorpicker();
+    var c = document.getElementById("icon-canvas");
+    c.oncontextmenu = function() {
+      return false;
+    }
 
     $('#btn-generate').click(function(e){
       e.preventDefault();
