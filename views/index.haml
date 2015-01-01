@@ -31,6 +31,11 @@
         %a#btn-generate.btn.btn-primary{href: '#'} Generate
         %a#btn-download.btn.btn-info{href: '#'} Download
 
+.hidden
+  %form#download-form{action: '/download', method: 'POST'}
+    %input#data-url{:name => "image-data", :type => "text", :value => ""}
+    %input#data-url{:type => "submit"}
+
 :javascript
   $(function(){
     $('.colorpicker').colorpicker();
@@ -56,8 +61,9 @@
       e.preventDefault();
       console.log('downloading image ....');
       var canvas = document.getElementById("icon-canvas");
-      var imgdata = canvas.toDataURL('image/png')
-      $.post( "/download", { data: imgdata } );
+      var imgdata = canvas.toDataURL('image/png');
+      $('#data-url').val(imgdata);
+      $('#download-form').submit();
     });
 
   });

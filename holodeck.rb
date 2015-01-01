@@ -15,7 +15,8 @@ get '/' do
 end
 
 post '/download' do
-  header('Content-type: image/octet-stream');
-  header('Content-disposition: attachment;filename=foo.png');
-  params[:data]
+  content_type('image/octet-stream');
+  headers["Content-Disposition"] = "attachment;filename=ios180x180-#{Time.now.to_i}.png"
+  data_url = params["image-data"]
+  Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
 end
