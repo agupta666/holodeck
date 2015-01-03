@@ -2,9 +2,40 @@
   %h4 Generate iOS 8 Icons
 
 .row
-  .col-sm-3
-    %canvas#icon-canvas{:height => "180", :style => "", :width => "180"}
-  .col-sm-9
+  .col-sm-6
+    .row
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-29p2x.icon-canvas{:height => "58", :style => "", :width => "58"}
+        .canvas-label
+          29 Point @ 2x
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-29p3x.icon-canvas{:height => "87", :style => "", :width => "87"}
+        .canvas-label
+          29 Point @ 3x
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-40p2x.icon-canvas{:height => "80", :style => "", :width => "80"}
+        .canvas-label
+          40 Point @ 2x
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-40p3x.icon-canvas{:height => "120", :style => "", :width => "120"}
+        .canvas-label
+          40 Point @ 3x
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-60p2x.icon-canvas{:height => "120", :style => "", :width => "120"}
+        .canvas-label
+          60 Point @ 2x
+      .col-sm-6
+        .canvas-container
+          %canvas#canvas-60p3x.icon-canvas{:height => "180", :style => "", :width => "180"}
+        .canvas-label
+          60 Point @ 3x
+
+  .col-sm-6
     #callout-focus-demo.bs-callout.bs-callout-info
       %h4
         Icon Properties
@@ -39,7 +70,7 @@
 :javascript
   $(function(){
     $('.colorpicker').colorpicker();
-    var c = document.getElementById("icon-canvas");
+    var c = document.getElementById("canvas-29p2x");
     c.oncontextmenu = function() {
       return false;
     }
@@ -49,25 +80,20 @@
       var bgColor = $('#bg-color').val();
       var fgColor = $('#fg-color').val();
       var selectedFont = String.fromCharCode($('#fontpicker').val());
-      var canvas = document.getElementById("icon-canvas");
-      var ctx = canvas.getContext("2d");
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.font = '84px/1 FontAwesome';
-      ctx.fillStyle = fgColor;
-      var w = (ctx.measureText(selectedFont).width) / 2;
-      var W = canvas.width / 2;
-      ctx.fillText(selectedFont, W-w, 115);
-      console.log()
+      generateIcon('canvas-29p2x', fgColor, bgColor, selectedFont);
+      $(".icon-canvas").each(function( index ) {
+        console.log($(this).context.id);
+        generateIcon($(this).context.id, fgColor, bgColor, selectedFont);
+      });
     });
 
     $('#btn-download').click(function(e){
       e.preventDefault();
       console.log('downloading image ....');
-      var canvas = document.getElementById("icon-canvas");
-      var imgdata = canvas.toDataURL('image/png');
-      $('#data-url').val(imgdata);
-      $('#download-form').submit();
+      $(".icon-canvas").each(function( index ) {
+        startDownload($(this).context.id);
+      });
+
     });
 
   });

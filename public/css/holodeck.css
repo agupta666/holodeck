@@ -22,11 +22,31 @@ body {
   margin-bottom: 5px;
 }
 
-#icon-canvas {
+.icon-canvas {
   border:1px solid #000000;
   border-radius: 15px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
 }
 
+.canvas-label {
+  text-align: center;
+  margin-top: 55px;
+  margin-bottom: 25px;
+}
+.canvas-container {
+  min-height: 180px;
+}
 .icon-list-container {
   margin-right: 0;
   margin-left: 0;
