@@ -1,8 +1,4 @@
-var startDownload = function() {
-  //var canvas = document.getElementById(canvasId);
-  //var imgdata = canvas.toDataURL('image/png');
-  //$('#data-url').val(imgdata);
-  //$('#download-form').submit();
+var uploadImageData = function() {
 
   $(".icon-canvas").each(function( index ) {
     var canvasId = $(this).context.id;

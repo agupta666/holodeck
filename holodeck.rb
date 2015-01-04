@@ -19,31 +19,22 @@ end
 
 get '/' do
   @icons= settings.pua
+  @zip_files= Dir.entries("public/workspace").select{ |e| e.end_with? ".zip" }
   haml :index
 end
 
 post '/createiconset' do
-  file_names = []
-  params.keys.select{ |k| k.start_with? "image-data"}.each do |key|
-    fname = image_file_name(key)
-    data_url = params[key]
-    data = Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
-    save(fname, data)
-    file_names << fname
-  end
-
   Zip::File.open("public/workspace/iconset-#{Time.now.to_i}.zip", Zip::File::CREATE) do |zipfile|
-    file_names.each do |filename|
-      # Two arguments:
-      # - The name of the file as it will appear in the archive
-      # - The original file, including the path to find it
-      zipfile.add(filename, "public/workspace/" + filename)
-      #File.delete("public/workspace/" + filename)
+    params.keys.select{ |k| k.start_with? "image-data"}.each do |key|
+      filename = image_file_name(key)
+      data_url = params[key]
+      zipfile.get_output_stream(filename) { |os| os.write Base64.decode64(data_url['data:image/png;base64,'.length .. -1]) }
     end
   end
   redirect to('/')
-  #content_type('image/octet-stream');
-  #headers["Content-Disposition"] = "attachment;filename=ios180x180-#{Time.now.to_i}.png"
-  #data_url = params["image-data"]
-  #Base64.decode64(data_url['data:image/png;base64,'.length .. -1])
+end
+
+post '/trash/:filename' do |file_name|
+  File.delete("public/workspace/" + file_name)
+  file_name.gsub(/.zip/, '')
 end

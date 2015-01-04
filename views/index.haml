@@ -44,13 +44,13 @@
         .form-group
           %label Background Color
           .input-group.colorpicker
-            %input#bg-color.form-control{:type => "text", :value => "#FFFFFF"}
+            %input#bg-color.form-control{:type => "text", :value => "#436184"}
             %span.input-group-addon
               %i
         .form-group
           %label Foreground Color
           .input-group.colorpicker
-            %input#fg-color.form-control{:type => "text", :value => "#000000"}
+            %input#fg-color.form-control{:type => "text", :value => "#FFFFFF"}
             %span.input-group-addon
               %i
         .form-group
@@ -60,10 +60,20 @@
               %option{:value => "0x#{icon[:code]}"}
                 = icon[:name]
         %a#btn-generate.btn.btn-primary{href: '#'} Generate
-        %a#btn-download.btn.btn-info{href: '#'} Download
+        %a#btn-create.btn.btn-info{href: '#'} Create Icon Set
     .well
       %h4 Icon Sets
       %hr
+      %table.table.table-striped
+        - @zip_files.each do |entry|
+          %tr{id: "#{entry.gsub(/.zip/, '')}"}
+            %td.col-sm-1
+              %i.fa.fa-file
+            %td
+              %a{href: "/workspace/#{entry}"}= entry
+            %td.col-sm-1
+              %a.btn-trash{:href => "#", id: "#{entry}"}
+                %i.fa.fa-trash
 
 .hidden
   %form#download-form{action: '/createiconset', method: 'POST'}
@@ -90,14 +100,22 @@
       var fgColor = $('#fg-color').val();
       var selectedFont = String.fromCharCode($('#fontpicker').val());
       $(".icon-canvas").each(function( index ) {
-        console.log($(this).context.id);
         generateIcon($(this).context.id, fgColor, bgColor, selectedFont);
       });
     });
 
-    $('#btn-download').click(function(e){
+    $('#btn-create').click(function(e){
       e.preventDefault();
-      startDownload();
+      uploadImageData();
     });
 
+
+    $('.btn-trash').click(function(e){
+      e.preventDefault();
+      $.post( "/trash/" + e.currentTarget.id , function( data ) {
+        var rowId = "tr#" + data;
+        $(rowId).remove();
+      });
+
+    });
   });
