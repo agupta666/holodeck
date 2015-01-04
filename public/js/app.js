@@ -1,7 +1,16 @@
-var startDownload = function(canvasId) {
-  var canvas = document.getElementById(canvasId);
-  var imgdata = canvas.toDataURL('image/png');
-  $('#data-url').val(imgdata);
+var startDownload = function() {
+  //var canvas = document.getElementById(canvasId);
+  //var imgdata = canvas.toDataURL('image/png');
+  //$('#data-url').val(imgdata);
+  //$('#download-form').submit();
+
+  $(".icon-canvas").each(function( index ) {
+    var canvasId = $(this).context.id;
+    var canvas = document.getElementById(canvasId);
+    var formElemId = canvasId.replace('canvas-', '#data-url-');
+    var imgdata = canvas.toDataURL('image/png');
+    $(formElemId).val(imgdata);
+  });
   $('#download-form').submit();
 }
 

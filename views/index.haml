@@ -61,11 +61,20 @@
                 = icon[:name]
         %a#btn-generate.btn.btn-primary{href: '#'} Generate
         %a#btn-download.btn.btn-info{href: '#'} Download
+    .well
+      %h4 Icon Sets
+      %hr
 
 .hidden
-  %form#download-form{action: '/download', method: 'POST'}
-    %input#data-url{:name => "image-data", :type => "text", :value => ""}
-    %input#data-url{:type => "submit"}
+  %form#download-form{action: '/createiconset', method: 'POST'}
+    %input#data-url-29p2x{:name => "image-data-29p2x", :type => "text", :value => ""}
+    %input#data-url-29p3x{:name => "image-data-29p3x", :type => "text", :value => ""}
+    %input#data-url-40p2x{:name => "image-data-40p2x", :type => "text", :value => ""}
+    %input#data-url-40p3x{:name => "image-data-40p3x", :type => "text", :value => ""}
+    %input#data-url-60p2x{:name => "image-data-60p2x", :type => "text", :value => ""}
+    %input#data-url-60p3x{:name => "image-data-60p3x", :type => "text", :value => ""}
+
+    %input{:type => "submit"}
 
 :javascript
   $(function(){
@@ -80,7 +89,6 @@
       var bgColor = $('#bg-color').val();
       var fgColor = $('#fg-color').val();
       var selectedFont = String.fromCharCode($('#fontpicker').val());
-      generateIcon('canvas-29p2x', fgColor, bgColor, selectedFont);
       $(".icon-canvas").each(function( index ) {
         console.log($(this).context.id);
         generateIcon($(this).context.id, fgColor, bgColor, selectedFont);
@@ -89,11 +97,7 @@
 
     $('#btn-download').click(function(e){
       e.preventDefault();
-      console.log('downloading image ....');
-      $(".icon-canvas").each(function( index ) {
-        startDownload($(this).context.id);
-      });
-
+      startDownload();
     });
 
   });
